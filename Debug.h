@@ -12,7 +12,7 @@
 #ifndef _DEBUG_
 #define _DEBUG_
 
-#include <psl1ght/lv2.h>
+
 #include <string>
 
 #define FONT_W 8
