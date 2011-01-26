@@ -1,0 +1,4 @@
+Version 0.01
+* Removed Dependencies for PSL1GHT
+* Renamed Debug class for PS3Printer.
+* Changed FontColor functions to SetFontColor.

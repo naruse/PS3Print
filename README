@@ -1,4 +1,6 @@
-PS3Print 
+PS3Printer
+
+Version 0.01
 
 Author: Juan Sebastian Munnoz
 email: naruse@gmail.com
@@ -6,44 +8,44 @@ email: naruse@gmail.com
 PS3Print is based on Scognito's sconsole. (http://scognito.wordpress.com/2010/11/07/sconsole-a-simple-function-for-printing-strings-on-ps3/)
 
 
-PS3Print is a simple class written in C++ and it helps you out visualizing strings on the PS3 screen. this library works
-with PSL1GHT but its not tied to it.
+PS3Print is a simple class written in C++ and it helps you out visualizing strings on the PS3 screen. 
+This library works with PSL1GHT but its not tied to it.
 
 This library only has 3 main files.
 
 
-* Debug.h
-* Debug.cpp
+* PS3Printer.h
+* PS3Printer.cpp
 * console_fonts.h
 
-Just place the Debug.h and console_fonts.h under the "include" folder and Debug.cpp under the "source" folder.
+Just place the PS3Printer.h and console_fonts.h under the "include" folder and PS3Printer.cpp under the "source" folder.
 
 
 Usage:
 
-#include "Debug.h"
+#include "PS3Printer.h"
 
-//Make sure to init the Debug class.
+//Make sure to init the PS3Printer class.
 //by default it uses a black font with a transparent background.
-Debug::Init(screenWidth, screenHeight);
+PS3Printer::Init(screenWidth, screenHeight);
 
 
 //And just feel free to call any of the functions.
 
-Debug::FontColor(FONT_COLOR_BLACK);
-Debug::Log(0.025, 0.025, "This is a normal string!", *buffer);
+PS3Printer::SetFontColor(FONT_COLOR_BLACK);
+PS3Printer::Print(0.025, 0.025, "This is a normal string!", *buffer);
 
-Debug::FontColor(FONT_COLOR_GREEN);
-Debug::Log(0.25, 0.25, "This is another green string!" + str, *buffer);
+PS3Printer::SetFontColor(FONT_COLOR_GREEN);
+PS3Printer::Print(0.25, 0.25, "This is another green string!" + str, *buffer);
 
-Debug::FontColor(0x00ff00ff); //purple, colors have the syntax 0xAARRGGBB
-Debug::Log(0.5, 0.5, "Frame: " + LongToString(frame), *buffer);
+PS3Printer::SetFontColor(0x00ff00ff); //purple, colors have the syntax 0xAARRGGBB
+PS3Printer::Print(0.5, 0.5, "Frame: " + LongToString(frame), *buffer);
 
 //Draws the error message on a Red Background with Yellow Letters.		
-Debug::LogError(0.75, 0.75, "This is an error message!!!", *buffer);
+PS3Printer::PrintError(0.75, 0.75, "This is an error message!!!", *buffer);
 
 // Draws the warning message with a transparent background and yellow Letters
-Debug::LogWarning(0.8, 0.95, "This is a warning message :O", *buffer);
+PS3Printer::PrintWarning(0.8, 0.95, "This is a warning message :O", *buffer);
 
 
 Position values (x,y) go from 0 to 1 where 0,0 is the top left corner of the screen and

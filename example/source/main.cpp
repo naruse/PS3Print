@@ -1,7 +1,7 @@
 
 #include <io/pad.h>
 #include "VideoInit.h"
-#include "Debug.h"
+#include "PS3Printer.h"
 
 
 
@@ -29,7 +29,7 @@ s32 main(int argc, const char* argv[]) {
 	int incr = 0;
 	
 	
-	Debug::Init(vid.GetCurrentBuffer()->width, vid.GetCurrentBuffer()->height);
+	PS3Printer::Init(vid.GetCurrentBuffer()->width, vid.GetCurrentBuffer()->height);
 	
 	
 	// Ok, everything is setup. Now for the main loop.
@@ -52,17 +52,20 @@ s32 main(int argc, const char* argv[]) {
 		vid.WaitFlip();
 		vid.DrawBackground(0xffffffff);//White background (format AARRGGBB)
 		frame++;
-		Debug::FontColor(FONT_COLOR_BLACK);
-		Debug::Log(0.025, 0.025, "This is a normal string!", vid.GetCurrentBuffer()->ptr);
+		PS3Printer::SetFontSize(8,16);
+		PS3Printer::SetFontColor(FONT_COLOR_BLACK);
+		PS3Printer::Print(0.025, 0.025, "This is a normal string!", vid.GetCurrentBuffer()->ptr);
 
-		Debug::FontColor(FONT_COLOR_GREEN);
-		Debug::Log(0.25, 0.25, "This is another green string!" + str, vid.GetCurrentBuffer()->ptr);
+		PS3Printer::SetFontColor(FONT_COLOR_GREEN);
+		PS3Printer::Print(0.25, 0.25, "This is another green string!" + str, vid.GetCurrentBuffer()->ptr);
 
-		Debug::FontColor(0x00ff00ff); //purple
-		Debug::Log(0.5, 0.5, "Frame: " + LongToString(frame), vid.GetCurrentBuffer()->ptr);
-		
-		Debug::LogError(0.75, 0.75, "This is an error message!!!", vid.GetCurrentBuffer()->ptr);
-		Debug::LogWarning(0.8, 0.95, "This is a warning message :O", vid.GetCurrentBuffer()->ptr);
+
+		PS3Printer::SetFontColor(0x00ff00ff); //purple
+		PS3Printer::Print(0.5, 0.5, "Frame: " + LongToString(frame), vid.GetCurrentBuffer()->ptr);
+
+
+		PS3Printer::PrintError(0.75, 0.75, "This is an error message!!!", vid.GetCurrentBuffer()->ptr);
+		PS3Printer::PrintWarning(0.8, 0.95, "This is a warning message :O", vid.GetCurrentBuffer()->ptr);
 		vid.Flip();
 
 	}
