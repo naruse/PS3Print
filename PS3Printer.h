@@ -15,8 +15,7 @@
 
 #include <string>
 
-//#define FONT_W 8
-//#define FONT_H 16
+
 
 #define FONT_COLOR_NONE   -1
 #define FONT_COLOR_BLACK  0x00000000
@@ -26,25 +25,40 @@
 #define FONT_COLOR_BLUE   0x000000ff
 #define FONT_COLOR_YELLOW 0x00ffff00
 
-
+// Static class to print on the framebuffer
 class PS3Printer {
+ public:
+	enum FONTNAME { ARIAL = 0, SEGOESCRIPT = 1 };
  private:
 	struct s_console {
-		static int __fontWidth;		
-		static int __fontHeight;
+		// For accessing each char depending on the font //		
+		static unsigned short __dataLength;
+		static unsigned short __fontHeight;
+		static unsigned char* __fontDataTable;
+		static unsigned int* __fontOffsetTable;
+		static unsigned char* __fontIndexTable;		
+		static unsigned char* __fontWidthTable;
+		//***********************************************//
+		static FONTNAME __fontName;
+		static int __fontSize;
+		static int __screenWidth;
+		static int __screenHeight;
 		static int __curX;
 		static int __curY;
 		static int __fgColor;
 		static int __bgColor;
-		static int __screenWidth;
-		static int __screenHeight;
-	};
-	static s_console sconsole;
-	
-	PS3Printer();//dont let anyone create an instance of this class
 
+	};
+	static s_console sconsole;	
+	PS3Printer();//dont let anyone create an instance of this class
+	static void SetDefaultValues(); // Default Font: Arial 8.
+	static void SetErrorValues(); // Used when whe font or size hasnt been found when calling Init
+	static void SetFontValues(const unsigned short dataLength, const unsigned short fontHeight,
+	                          const unsigned char* dataTable, const unsigned int* offsetTable,
+	                          const unsigned char* indexTable, const unsigned char* widthTable);
  public:
-	static void Init(int _screenWidth, int _screenHeight, int _fontWidth, int _fontHeight);
+
+	static void Init(int _screenWidth, int _screenHeight, FONTNAME f, int fontSize);
 	static void Init(int _screenWidth, int _screenHeight);
 
 	
@@ -56,7 +70,9 @@ class PS3Printer {
 	static void SetFontColor(int _bgColor, int _fgColor);
 	static void SetFontColor(int _fgColor);
 
-	static void SetFontSize(int _width, int _height);
+
+	static void SetFont(FONTNAME f, int size);
+	static void SetFontSize(int _size);
 	
 };
 

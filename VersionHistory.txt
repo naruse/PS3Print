@@ -1,3 +1,8 @@
+Version 0.5
+* Added Support for different kinds of fonts.
+* Added font Arial 8.
+* Added font Segoe Script 16.
+
 Version 0.01
 * Removed Dependencies for PSL1GHT
 * Renamed Debug class for PS3Printer.

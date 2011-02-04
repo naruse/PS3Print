@@ -52,18 +52,24 @@ s32 main(int argc, const char* argv[]) {
 		vid.WaitFlip();
 		vid.DrawBackground(0xffffffff);//White background (format AARRGGBB)
 		frame++;
-		PS3Printer::SetFontSize(8,16);
+		PS3Printer::SetFont(PS3Printer::ARIAL, 8);
 		PS3Printer::SetFontColor(FONT_COLOR_BLACK);
 		PS3Printer::Print(0.025, 0.025, "This is a normal string!", vid.GetCurrentBuffer()->ptr);
 
 		PS3Printer::SetFontColor(FONT_COLOR_GREEN);
+		PS3Printer::SetFont(PS3Printer::SEGOESCRIPT, 16);
 		PS3Printer::Print(0.25, 0.25, "This is another green string!" + str, vid.GetCurrentBuffer()->ptr);
 
-
+		
 		PS3Printer::SetFontColor(0x00ff00ff); //purple
+		PS3Printer::SetFont(PS3Printer::SEGOESCRIPT, 16);
 		PS3Printer::Print(0.5, 0.5, "Frame: " + LongToString(frame), vid.GetCurrentBuffer()->ptr);
 
-
+		PS3Printer::SetFontColor(FONT_COLOR_BLACK);
+		PS3Printer::SetFont(PS3Printer::ARIAL, 8);
+		PS3Printer::Print(0.5, 0.6, "This is an Arial 8 test!", vid.GetCurrentBuffer()->ptr);
+		                    
+		
 		PS3Printer::PrintError(0.75, 0.75, "This is an error message!!!", vid.GetCurrentBuffer()->ptr);
 		PS3Printer::PrintWarning(0.8, 0.95, "This is a warning message :O", vid.GetCurrentBuffer()->ptr);
 		vid.Flip();
