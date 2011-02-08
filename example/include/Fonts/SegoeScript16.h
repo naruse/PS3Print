@@ -18,9 +18,9 @@
      const unsigned char *pData = data_table[offset];
 
  *******************************************************************************************/
-const unsigned short segoeScript16DataLength = 8; // bits
-const unsigned short segoeScript16CharHeight = 33;
-const unsigned char segoeScript16Data_table[] = {
+const unsigned short SegoeScript16DataLength = 8; // bits
+const unsigned short SegoeScript16CharHeight = 33;
+const unsigned char SegoeScript16Data_table[] = {
 
 /* character 0x0020 (' '): (width=8, offset=0) */
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -917,7 +917,7 @@ const unsigned char segoeScript16Data_table[] = {
      const unsigned int offset = offset_table[index]
 
  *******************************************************************************************/
-const unsigned int segoeScript16Offset_table[] = {
+const unsigned int SegoeScript16Offset_table[] = {
 /*		offset    char    hexcode */
 /*		======    ====    ======= */
   		     0, /*          0020    */
@@ -1029,7 +1029,7 @@ const unsigned int segoeScript16Offset_table[] = {
      const unsigned char index = index_table['A'];
 
  *******************************************************************************************/
-const unsigned char segoeScript16Index_table[] = {
+const unsigned char SegoeScript16Index_table[] = {
 /*		index   hexcode   decimal  char */
 /*		=====   =======   =======  ==== */
   		  0, /*   00          0     .   */
@@ -1300,7 +1300,7 @@ const unsigned char segoeScript16Index_table[] = {
      const unsigned char width = width_table[index];
 
  *******************************************************************************************/
-const unsigned char segoeScript16Width_table[] = {
+const unsigned char SegoeScript16Width_table[] = {
 /*		width    char    hexcode */
 /*		=====    ====    ======= */
   		  8, /*          0020    */

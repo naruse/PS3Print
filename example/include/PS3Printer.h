@@ -12,9 +12,7 @@
 #ifndef _PS3PRINTER_
 #define _PS3PRINTER_
 
-
 #include <string>
-
 
 
 #define FONT_COLOR_NONE   -1
@@ -28,17 +26,23 @@
 // Static class to print on the framebuffer
 class PS3Printer {
  public:
-	enum FONTNAME { ARIAL = 0, SEGOESCRIPT = 1 };
+	enum FONTNAME { ARIAL = 0, BITSTREAMVERASANSMONO = 1, SEGOESCRIPT = 2 };
  private:
 	struct s_console {
-		// For accessing each char depending on the font //		
+		// For accessing each char depending on the font //
+		static bool __monospaced;
 		static unsigned short __dataLength;
 		static unsigned short __fontHeight;
 		static unsigned char* __fontDataTable;
+		static unsigned char* __fontIndexTable;
+		// if the font width is always the same (monospaced)
+		static unsigned int __fontOffset;
+		static unsigned char __fontWidth;
+		// else if the font width is variable (isnt monospaced) we use tables for the widths and offsets
 		static unsigned int* __fontOffsetTable;
-		static unsigned char* __fontIndexTable;		
 		static unsigned char* __fontWidthTable;
 		//***********************************************//
+		
 		static FONTNAME __fontName;
 		static int __fontSize;
 		static int __screenWidth;
@@ -51,11 +55,17 @@ class PS3Printer {
 	};
 	static s_console sconsole;	
 	PS3Printer();//dont let anyone create an instance of this class
-	static void SetDefaultValues(); // Default Font: Arial 8.
+	static void SetDefaultValues(); // Default Font: Arial 14.
 	static void SetErrorValues(); // Used when whe font or size hasnt been found when calling Init
-	static void SetFontValues(const unsigned short dataLength, const unsigned short fontHeight,
+
+	static void SetFontValues(const unsigned short dataLength, const unsigned short fontHeight, 
 	                          const unsigned char* dataTable, const unsigned int* offsetTable,
 	                          const unsigned char* indexTable, const unsigned char* widthTable);
+
+	static void SetFontValuesMonospaced(const unsigned short dataLength, const unsigned short fontHeight,
+	                          const unsigned char* dataTable, const unsigned int offset,
+	                          const unsigned char* indexTable, const unsigned char width);
+
  public:
 
 	static void Init(int _screenWidth, int _screenHeight, FONTNAME f, int fontSize);
