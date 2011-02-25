@@ -1,3 +1,6 @@
+Version 1.0
+* Added transparency to fonts, now the Alpha channel is supported.
+
 Version  0.6
 * Added Font Arial (PS3Printer::ARIAL)
 ** Sizes: 9,10,11,12,14,16,18,20,22,24,26,28,36,48,72 

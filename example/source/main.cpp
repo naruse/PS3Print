@@ -26,8 +26,6 @@ s32 main(int argc, const char* argv[]) {
 
 	long frame = 0; // To keep track of how many frames we have rendered.
 
-	int incr = 0;
-	
 	
 	PS3Printer::Init(vid.GetCurrentBuffer()->width, vid.GetCurrentBuffer()->height);
 	
@@ -41,8 +39,7 @@ s32 main(int argc, const char* argv[]) {
 				ioPadGetData(i, &paddata);
 				
 				if(paddata.BTN_CROSS){
-					incr ++;
-					str = "X: " + IntToString(incr);
+					return 0;
 				}
 			}
 		}
@@ -52,7 +49,7 @@ s32 main(int argc, const char* argv[]) {
 		vid.WaitFlip();
 		vid.DrawBackground(0xffffffff);//White background (format AARRGGBB)
 		frame++;
-		PS3Printer::SetFontColor(FONT_COLOR_BLACK);
+		PS3Printer::SetFontColor(0x50000000); //black with half transparency
 		PS3Printer::SetFont(PS3Printer::ARIAL, 8);
 		PS3Printer::Print(0.025, 0.025, "Arial 8 example font", vid.GetCurrentBuffer()->ptr);
 		PS3Printer::SetFont(PS3Printer::ARIAL, 9);
@@ -86,7 +83,7 @@ s32 main(int argc, const char* argv[]) {
 		PS3Printer::SetFont(PS3Printer::ARIAL, 72);
 		PS3Printer::Print(0.025, 0.740, "Arial 72 example font", vid.GetCurrentBuffer()->ptr);
 
-		PS3Printer::SetFontColor(FONT_COLOR_BLACK);
+		PS3Printer::SetFontColor(FONT_COLOR_BLACK);// no transparency
 		PS3Printer::SetFont(PS3Printer::BITSTREAMVERASANSMONO, 8);
 		PS3Printer::Print(0.400, 0.025, "Bitstream Vera Sans Mono 8", vid.GetCurrentBuffer()->ptr);
 		PS3Printer::SetFont(PS3Printer::BITSTREAMVERASANSMONO, 9);
@@ -115,8 +112,10 @@ s32 main(int argc, const char* argv[]) {
 		PS3Printer::Print(0.400, 0.315, "Bitstream Vera Sans Mono 28", vid.GetCurrentBuffer()->ptr);
 		PS3Printer::SetFont(PS3Printer::BITSTREAMVERASANSMONO, 36);
 		PS3Printer::Print(0.400, 0.345, "Bitstream Vera Sans Mono 36", vid.GetCurrentBuffer()->ptr);
+		PS3Printer::SetFontColor(FONT_COLOR_YELLOW); // no transparency
 		PS3Printer::SetFont(PS3Printer::BITSTREAMVERASANSMONO, 48);
 		PS3Printer::Print(0.400, 0.385, "Bitstream Vera Sans Mono 48", vid.GetCurrentBuffer()->ptr);
+		PS3Printer::SetFontColor(0x5000ff00);
 		PS3Printer::SetFont(PS3Printer::BITSTREAMVERASANSMONO, 72);
 		PS3Printer::Print(0.025, 0.840, "Bitstream Vera Sans Mono 72", vid.GetCurrentBuffer()->ptr);
 
@@ -125,7 +124,7 @@ s32 main(int argc, const char* argv[]) {
 
 		PS3Printer::PrintWarning(0.025, 0.730, "This is a warning message", vid.GetCurrentBuffer()->ptr);
 		
-		PS3Printer::SetFontColor(0x00ff00ff); //purple
+		PS3Printer::SetFontColor(0x7FFF0000); //RED
 		PS3Printer::SetFont(PS3Printer::SEGOESCRIPT, 16);
 		PS3Printer::Print(0.025, 0.5, "Frame: " + LongToString(frame), vid.GetCurrentBuffer()->ptr);
 

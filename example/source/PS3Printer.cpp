@@ -100,6 +100,25 @@ void PS3Printer::SetFontColor(int _fgColor) {
 	sconsole.__fgColor = _fgColor;
 }
 
+uint32_t PS3Printer::CalculateAlpha(const uint32_t &src, const uint32_t &bg) {//bg -> Background; src -> Color we want to calculate-alpha
+	uint32_t a = src >> 24;    // alpha
+ 
+	//return background if the color is transparent
+	if (0 == a) 
+		return bg;
+	if(0xffffffff == a)
+		return src;
+	
+	// alpha blending the source and background colors
+	uint32_t rb = (((src & 0x00ff00ff) * a) +  
+	                   ((bg & 0x00ff00ff) * (0xff - a))) & 0xff00ff00;
+	uint32_t g  = (((src & 0x0000ff00) * a) + 
+	                      ((bg & 0x0000ff00) * (0xff - a))) & 0x00ff0000;
+
+	return (src & 0xff000000) | ((rb | g) >> 8);
+}
+
+
 //used when the font widths are variable
 void PS3Printer::SetFontValues(const unsigned short dataLength, const unsigned short fontHeight,
                                const unsigned char* dataTable, const unsigned int* offsetTable,
@@ -192,10 +211,10 @@ void PS3Printer::Print(float _x, float _y, std::string txt, uint32_t* buffer) {
 				std::bitset<sizeof(char) * 8> bitMap(*charData);
 				if(bitMap.test(bitIndex)) { //means is part of the fgColor
 					if(sconsole.__fgColor != FONT_COLOR_NONE)
-						buffer[(sconsole.__curY + offsetY)*sconsole.__screenWidth + sconsole.__curX + offsetX] = sconsole.__fgColor;
+						buffer[(sconsole.__curY + offsetY)*sconsole.__screenWidth + sconsole.__curX + offsetX] = CalculateAlpha(sconsole.__fgColor, buffer[(sconsole.__curY + offsetY)*sconsole.__screenWidth + sconsole.__curX + offsetX]);
 				} else {
 					if(sconsole.__bgColor != FONT_COLOR_NONE)
-						buffer[(sconsole.__curY + offsetY)*sconsole.__screenWidth + sconsole.__curX + offsetX] = sconsole.__bgColor;
+						buffer[(sconsole.__curY + offsetY)*sconsole.__screenWidth + sconsole.__curX + offsetX] = CalculateAlpha(sconsole.__bgColor, buffer[(sconsole.__curY + offsetY)*sconsole.__screenWidth + sconsole.__curX + offsetX]);
 				}
 				if(bitIndex == 0) {
 					bitIndex = 7;

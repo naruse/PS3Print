@@ -16,12 +16,12 @@
 
 
 #define FONT_COLOR_NONE   -1
-#define FONT_COLOR_BLACK  0x00000000
+#define FONT_COLOR_BLACK  0xff000000
 #define FONT_COLOR_WHITE  0xffffffff
-#define FONT_COLOR_RED    0x00ff0000
-#define FONT_COLOR_GREEN  0x0000ff00
-#define FONT_COLOR_BLUE   0x000000ff
-#define FONT_COLOR_YELLOW 0x00ffff00
+#define FONT_COLOR_RED    0xffff0000
+#define FONT_COLOR_GREEN  0xff00ff00
+#define FONT_COLOR_BLUE   0xff0000ff
+#define FONT_COLOR_YELLOW 0xffffff00
 
 // Static class to print on the framebuffer
 class PS3Printer {
@@ -65,6 +65,7 @@ class PS3Printer {
 	static void SetFontValuesMonospaced(const unsigned short dataLength, const unsigned short fontHeight,
 	                          const unsigned char* dataTable, const unsigned int offset,
 	                          const unsigned char* indexTable, const unsigned char width);
+	static uint32_t CalculateAlpha(const uint32_t& src, const uint32_t& bg);
 
  public:
 
