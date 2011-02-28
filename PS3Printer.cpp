@@ -106,7 +106,7 @@ uint32_t PS3Printer::CalculateAlpha(const uint32_t &src, const uint32_t &bg) {//
 	//return background if the color is transparent
 	if (0 == a) 
 		return bg;
-	if(0xffffffff == a)
+	if(0xff == a)
 		return src;
 	
 	// alpha blending the source and background colors
