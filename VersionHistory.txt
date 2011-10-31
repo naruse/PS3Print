@@ -1,3 +1,6 @@
+Version 1.1
+* Merged changes from Korben @ #Psl1ght in irc to make it work with PSL1ght 2.
+
 Version 1.0
 * Added transparency to fonts, now the Alpha channel is supported.
 

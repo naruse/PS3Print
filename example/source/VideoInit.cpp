@@ -8,10 +8,10 @@ void VideoInit::InitScreen() {
 	assert(host_addr != NULL);
 
 	// Initilise Reality, which sets up the command buffer and shared IO memory
-	context = realityInit(0x10000, 1024*1024, host_addr); 
+	context = rsxInit(0x10000, 1024*1024, host_addr); 
 	assert(context != NULL);
 
-	VideoState state;
+	videoState state;
 	assert(videoGetState(0, 0, &state) == 0); // Get the state of the display
 	assert(state.state == 0); // Make sure display is enabled
 
@@ -19,8 +19,8 @@ void VideoInit::InitScreen() {
 	assert(videoGetResolution(state.displayMode.resolution, &res) == 0);
 	
 	// Configure the buffer format to xRGB
-	VideoConfiguration vconfig;
-	memset(&vconfig, 0, sizeof(VideoConfiguration));
+	videoConfiguration vconfig;
+	memset(&vconfig, 0, sizeof(videoConfiguration));
 	vconfig.resolution = state.displayMode.resolution;
 	vconfig.format = VIDEO_BUFFER_FORMAT_XRGB;
 	vconfig.pitch = res.width * 4;
@@ -48,7 +48,7 @@ void VideoInit::WaitFlip() {
 // flips the buffer and make RSX use the other bugffer
 void VideoInit::Flip() {
 	assert(gcmSetFlip(context, currentBuffer) == 0);
-	realityFlushBuffer(context);
+	rsxFlushBuffer(context);
 	gcmSetWaitFlip(context); //prevent RSX from continuing until the flip has finished
 
 	//Automatically change the current buffer
@@ -57,15 +57,15 @@ void VideoInit::Flip() {
 //Only used for InitScreen
 void VideoInit::Flip(s32 buffer) {
 	assert(gcmSetFlip(context, buffer) == 0);
-	realityFlushBuffer(context);
+	rsxFlushBuffer(context);
 	gcmSetWaitFlip(context); //prevent RSX from continuing until the flip has finished
 }
 // Creates a buffer based on the resolution of the Screen.
 void VideoInit::MakeBuffer(int id, int size) {
 	buffer *buf = (buffer*) malloc(sizeof(buffer));
-	buf->ptr = (uint32_t*) rsxMemAlign(16, size);
+	buf->ptr = (uint32_t*) rsxMemalign(16, size);
 	assert(buf->ptr != NULL);
-	assert(realityAddressToOffset(buf->ptr, &buf->offset) == 0);
+	assert(rsxAddressToOffset(buf->ptr, &buf->offset) == 0);
 	assert(gcmSetDisplayBuffer(id, buf->offset, res.width * 4, res.width, res.height) == 0);
 	buf->width = res.width;
 	buf->height = res.height;

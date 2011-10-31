@@ -12,7 +12,7 @@
 #ifndef _VIDEOINIT_
 #define _VIDEOINIT_
 
-#include <psl1ght/lv2.h>
+#include <ppu-lv2.h>
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
@@ -20,8 +20,8 @@
 #include <assert.h>
 
 #include <sysutil/video.h>
-#include <rsx/gcm.h>
-#include <rsx/reality.h>
+#include <rsx/gcm_sys.h>
+#include <rsx/rsx.h>
 
 
 class VideoInit {
@@ -34,7 +34,7 @@ class VideoInit {
 	} buffer; //Represents the display where we are going to draw our stuff
 
 	gcmContextData *context;
-	VideoResolution res; //dont access this, if you want to access the res.width/height, use GetCurrentBuffer->height/width instead
+	videoResolution res; //dont access this, if you want to access the res.width/height, use GetCurrentBuffer->height/width instead
 	int currentBuffer;
 	buffer *buffers[2]; // Buffers we are going to draw into (double buffering)
 

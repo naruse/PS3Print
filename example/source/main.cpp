@@ -1,4 +1,4 @@
-
+#include <ppu-lv2.h>
 #include <io/pad.h>
 #include "VideoInit.h"
 #include "PS3Printer.h"
@@ -12,11 +12,10 @@ using namespace::std;
 
 
 
-
 s32 main(int argc, const char* argv[]) {
 	
-	PadInfo padinfo;
-	PadData paddata;
+	padInfo padinfo;
+	padData paddata;
 	int i;
 	VideoInit vid = VideoInit();//Initializes the screen
 
